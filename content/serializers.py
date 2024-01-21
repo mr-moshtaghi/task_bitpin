@@ -21,7 +21,7 @@ class ContentSerializer(serializers.ModelSerializer):
 
     def get_my_rating(self, obj: Content):
         user = self.context.get('user')
-        rating = Rating.objects.filter(content=obj, user=user).first()
+        rating = obj.ratings.filter(user=user).first()
         if rating:
             return rating.rating
         return None
