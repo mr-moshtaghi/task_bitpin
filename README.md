@@ -9,7 +9,5 @@ python manage.py runserver
 python manage.py test
 ```
 ### for test api
+You can use the postman collection included in the project to test apis
 
-```
- You can use the postman collection included in the project to test apis
-```
