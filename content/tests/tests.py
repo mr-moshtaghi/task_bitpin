@@ -56,13 +56,13 @@ class ContentTestCase(APITestCase):
         self.assertEqual(responses_for_user_1[0]["text"], "text for content1")
         self.assertEqual(responses_for_user_1[0]["ratings_count"], 2)
         self.assertEqual(responses_for_user_1[0]["ratings_average"], 4.0)
-        self.assertEqual(responses_for_user_1[0]["my_rating"], 5)
+        self.assertEqual(responses_for_user_1[0]["rating"], 5)
 
         self.assertEqual(responses_for_user_1[1]["title"], "content2")
         self.assertEqual(responses_for_user_1[1]["text"], "text for content2")
         self.assertEqual(responses_for_user_1[1]["ratings_count"], 1)
         self.assertEqual(responses_for_user_1[1]["ratings_average"], 4.0)
-        self.assertEqual(responses_for_user_1[1]["my_rating"], 4)
+        self.assertEqual(responses_for_user_1[1]["rating"], 4)
 
         responses_for_user_2 = self.authenticated_client_2.get(reverse("content:contents")).json()
 
@@ -70,13 +70,13 @@ class ContentTestCase(APITestCase):
         self.assertEqual(responses_for_user_2[0]["text"], "text for content1")
         self.assertEqual(responses_for_user_2[0]["ratings_count"], 2)
         self.assertEqual(responses_for_user_2[0]["ratings_average"], 4.0)
-        self.assertEqual(responses_for_user_2[0]["my_rating"], 3)
+        self.assertEqual(responses_for_user_2[0]["rating"], 3)
 
         self.assertEqual(responses_for_user_2[1]["title"], "content2")
         self.assertEqual(responses_for_user_2[1]["text"], "text for content2")
         self.assertEqual(responses_for_user_2[1]["ratings_count"], 1)
         self.assertEqual(responses_for_user_2[1]["ratings_average"], 4.0)
-        self.assertIsNone(responses_for_user_2[1]["my_rating"])
+        self.assertIsNone(responses_for_user_2[1]["rating"])
 
     def test_rating(self):
         # for user 1
@@ -89,7 +89,7 @@ class ContentTestCase(APITestCase):
         self.assertEqual(responses["text"], "text for content1")
         self.assertEqual(responses["ratings_count"], 2)
         self.assertEqual(responses["ratings_average"], 2.5)
-        self.assertEqual(responses["my_rating"], 2)
+        self.assertEqual(responses["rating"], 2)
 
         responses = self.authenticated_client_1.post(
             reverse("content:rating", args=(1,)),  # content1
@@ -100,7 +100,7 @@ class ContentTestCase(APITestCase):
         self.assertEqual(responses["text"], "text for content1")
         self.assertEqual(responses["ratings_count"], 2)
         self.assertEqual(responses["ratings_average"], 4.0)
-        self.assertEqual(responses["my_rating"], 5)
+        self.assertEqual(responses["rating"], 5)
 
         # for user 2
 
@@ -113,7 +113,7 @@ class ContentTestCase(APITestCase):
         self.assertEqual(responses["text"], "text for content1")
         self.assertEqual(responses["ratings_count"], 2)
         self.assertEqual(responses["ratings_average"], 4.0)
-        self.assertEqual(responses["my_rating"], 3)
+        self.assertEqual(responses["rating"], 3)
 
         responses = self.authenticated_client_2.post(
             reverse("content:rating", args=(2,)),  # content2
@@ -124,4 +124,4 @@ class ContentTestCase(APITestCase):
         self.assertEqual(responses["text"], "text for content2")
         self.assertEqual(responses["ratings_count"], 2)
         self.assertEqual(responses["ratings_average"], 2.5)
-        self.assertEqual(responses["my_rating"], 1)
+        self.assertEqual(responses["rating"], 1)

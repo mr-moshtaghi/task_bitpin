@@ -5,11 +5,11 @@ from .models import Content, Rating
 class ContentSerializer(serializers.ModelSerializer):
     ratings_count = serializers.SerializerMethodField()
     ratings_average = serializers.SerializerMethodField()
-    my_rating = serializers.SerializerMethodField()
+    rating = serializers.SerializerMethodField()
 
     class Meta:
         model = Content
-        fields = ("title", "text", "ratings_count", "ratings_average", "my_rating")
+        fields = ("title", "text", "ratings_count", "ratings_average", "rating")
 
     def get_ratings_count(self, obj: Content):
         return obj.ratings.count()
@@ -19,7 +19,7 @@ class ContentSerializer(serializers.ModelSerializer):
             return 0
         return sum(obj.ratings.values_list("rating", flat=True)) / obj.ratings.count()
 
-    def get_my_rating(self, obj: Content):
+    def get_rating(self, obj: Content):
         user = self.context.get('user')
         rating = obj.ratings.filter(user=user).first()
         if rating:
