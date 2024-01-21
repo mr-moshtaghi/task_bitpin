@@ -10,4 +10,4 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
-    list_display = ("user", "content", "rating")
+    list_display = ("id", "user", "content", "rating")
